@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Bear Adventure ❤️</title>
+
+<style>
+body {
+  background-color: #ffe4ec;
+  background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
+  font-family: "Comic Sans MS", cursive;
+  text-align: center;
+}
+
+.gamebox {
+  background: white;
+  padding: 30px;
+  margin: 50px auto;
+  width: 70%;
+  border-radius: 20px;
+  border: 3px solid #ff9bb3;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+button {
+  padding: 12px 20px;
+  margin: 10px;
+  font-size: 14px;
+  border-radius: 10px;
+  border: none;
+  background: #ff7aa2;
+  color: white;
+  cursor: pointer;
+}
+
+.hidden { display:none; }
+
+img {
+  margin:10px;
+  border-radius:10px;
+}
+
+/* pixel map */
+#map {
+  font-size:40px;
+  margin:20px;
+}
+</style>
+
+<script>
+function show(id){
+  document.querySelectorAll(".scene").forEach(s => s.classList.add("hidden"));
+  document.getElementById(id).classList.remove("hidden");
+}
+
+/* HEART GAME */
+let score = 0;
+function catchHeart(){
+  score++;
+  document.getElementById("score").innerText = "Hearts collected: " + score;
+
+  let heart = document.getElementById("heart");
+  heart.style.position = "relative";
+  heart.style.left = (Math.random()*200 - 100) + "px";
+  heart.style.top = (Math.random()*100 - 50) + "px";
+
+  if(score >= 5){
+    document.getElementById("unlockMsg").innerText = "Secret unlocked later… 👀";
+  }
+}
+
+/* LOVE WHEEL */
+function spinWheel(){
+  let messages = [
+    "Bear gets a hug 🤗",
+    "Bear receives infinite snacks 🍪",
+    "Bear unlocked cuddles mode 🧸",
+    "Bear is loved forever 💛"
+  ];
+  let result = messages[Math.floor(Math.random()*messages.length)];
+  document.getElementById("wheelResult").innerText = result;
+}
+
+/* PIXEL WALK */
+let pos = 0;
+function move(dir){
+  pos += dir;
+  if(pos < 0) pos = 0;
+  if(pos > 4) pos = 4;
+
+  let map = ["🌲","🌸","🐻","🌙","🏡"];
+  document.getElementById("map").innerText = map[pos];
+
+  if(pos === 4){
+    document.getElementById("secretPhoto").classList.remove("hidden");
+  }
+}
+</script>
+
+</head>
+
+<body>
+
+<div class="gamebox">
+
+<!-- Scene 1 -->
+<div id="scene1" class="scene">
+<h2>🐻 Bear wakes up in a soft world 🌸✨</h2>
+<p>Someone... made this for you 💛</p>
+<button onclick="show('photos')">Start Adventure</button>
+</div>
+
+<!-- Photos -->
+<div id="photos" class="scene hidden">
+<h2>Memories 📸✨</h2>
+
+<img src="photo1.jpeg" width="200">
+<img src="photo2.jpeg" width="200">
+<img src="photo3.jpeg" width="200">
+<img src="photo4.jpeg" width="200">
+<img src="photo5.jpeg" width="200">
+<img src="photo6.jpeg" width="200">
+<img src="photo7.jpeg" width="200">
+<img src="photo8.jpeg" width="200">
+<img src="photo9.jpeg" width="200">
+<img src="photo10.jpeg" width="200">
+<img src="photo11.jpeg" width="200">
+<img src="photo12.jpeg" width="200">
+<img src="photo13.jpeg" width="200">
+<img src="photo14.jpeg" width="200">
+<img src="photo15.jpeg" width="200">
+<img src="photo16.jpeg" width="200">
+<img src="photo17.jpeg" width="200">
+<img src="photo18.jpeg" width="200">
+<img src="photo19.jpeg" width="200">
+
+<p>Every moment with you feels safe 🧸🌙</p>
+
+<button onclick="show('heartgame')">Continue</button>
+</div>
+
+<!-- Heart Game -->
+<div id="heartgame" class="scene hidden">
+<h2>💗 Catch the hearts</h2>
+<p>Click the heart!</p>
+
+<div id="heart" onclick="catchHeart()" style="font-size:40px; cursor:pointer;">💖</div>
+<p id="score">Hearts collected: 0</p>
+<p id="unlockMsg"></p>
+
+<button onclick="show('wheel')">Next Game</button>
+</div>
+
+<!-- Wheel -->
+<div id="wheel" class="scene hidden">
+<h2>🎡 Spin the Love Wheel</h2>
+<button onclick="spinWheel()">Spin</button>
+<p id="wheelResult"></p>
+
+<button onclick="show('mapScene')">Next</button>
+</div>
+
+<!-- Pixel Map -->
+<div id="mapScene" class="scene hidden">
+<h2>🌌 Walk the little world</h2>
+
+<div id="map">🐻</div>
+
+<button onclick="move(-1)">⬅️</button>
+<button onclick="move(1)">➡️</button>
+
+<p>Walk until you reach home… 🏠</p>
+
+<div id="secretPhoto" class="hidden">
+<h3>🔐 Secret unlocked</h3>
+<img src="secret.jpeg" width="250">
+<p>You reached the ending 💛</p>
+
+<audio controls>
+<source src="song.mp3" type="audio/mpeg">
+</audio>
+</div>
+
+</div>
+
+</div>
+
+<script>
+show('scene1');
+</script>
+
+</body>
+</html>
